@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/jquery-3.3.1.js"></script>
+</head>
+<body>
+<div id="result"></div>
+<input type="file" id="file" multiple>
+<input type="button" value="上传" onclick="uploadFile()">
+<script>
+    function uploadFile() {
+        var files = $("#file")[0].files;
+        console.log(files);
+        var formData = new FormData();
+        for (var i = 0; i < files.length; i++) {
+            formData.append("files", files[i]);
+        }
+        $.ajax({
+            type: 'post',
+            url: '/uploads',
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: function (msg) {
+                $("#result").html(msg);
+            }
+        })
+    }
+</script>
+</body>
+</html>
