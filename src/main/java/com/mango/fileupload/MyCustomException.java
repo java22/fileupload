@@ -5,9 +5,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 @ControllerAdvice
 public class MyCustomException {
@@ -23,7 +21,8 @@ public class MyCustomException {
 
     @ExceptionHandler(MaxUploadSizeExceededException.class)
     public ModelAndView myException(MaxUploadSizeExceededException e) throws IOException {
-        ModelAndView modelAndView = new ModelAndView("myerror");
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("myerror");
         modelAndView.addObject("error","上传文件超出大小限制！");
         return modelAndView;
     }
